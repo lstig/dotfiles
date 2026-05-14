@@ -1,0 +1,11 @@
+# Never commit pi runtime state
+pi/.pi/agent/auth.json
+pi/.pi/agent/sessions/
+pi/.pi/agent/settings.json
+
+# macOS
+.DS_Store
+
+# Editor cruft
+*.swp
+*~
