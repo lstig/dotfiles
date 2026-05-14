@@ -24,7 +24,7 @@ These apply to every pi session for this user. Project-level `AGENTS.md` files t
 - **Never** run destructive commands without confirming: `rm -rf`, `git clean -fdx`, `git push --force` (use `--force-with-lease`), history rewrites, `DROP`/`TRUNCATE`, `kubectl delete`, etc.
 - Prefer modern tools when available: `rg` over `grep -r`, `fd` over `find`, `bat` over `cat` for display, `eza` over `ls`, `gh` for GitHub ops, `glab` for GitLab ops, `tea` for Gitea ops.
 - Read files with the `read` tool; don't `cat` large files into the chat.
-- Don't echo or log values of env vars matching `*_TOKEN`, `*_KEY`, `*_SECRET`, `*_PASSWORD`, the contexts of environment files `.envrc`, `.env`, or anything under `~/.config/op/`, `~/.ssh/`, `~/.aws/`.
+- Don't echo or log values of env vars matching `*_TOKEN`, `*_KEY`, `*_SECRET`, `*_PASSWORD`, the contexts of environment files `.envrc`, `.env`, or anything under `~/.config/op/`, `~/.gnupg/`, `~/.ssh/`, `~/.aws/`.
 
 ## Git
 
