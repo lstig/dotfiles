@@ -49,8 +49,7 @@ only the resources you want under version control.
 ## Adding a new package
 
 1. Create a top-level directory named after the package (e.g. `zsh/`, `git/`).
-2. Inside it, recreate the target paths relative to `$HOME` (e.g.
-   `zsh/.zshrc`, `git/.config/git/config`).
+2. Inside it, recreate the target paths relative to `$HOME` (e.g. `zsh/.zshrc`, `git/.config/git/config`).
 3. `stow -t "$HOME" <package>` to install.
 
 ## pi customizations
