@@ -15,8 +15,6 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/make/libexec/gnubin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/llvm/bin:$PATH"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-export LDFLAGS="-L$HOMEBREW_PREFIX/opt/node/lib"
-export CPPFLAGS="-I$HOMEBREW_PREFIX/opt/node/include"
 
 # zsh configuration
 ZSH_CUSTOM="$ZDOTDIR/custom"
