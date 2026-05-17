@@ -5,19 +5,6 @@ type ThinkingLevel = "off" | "minimal" | "low" | "medium" | "high" | "xhigh";
 const LEVELS: ThinkingLevel[] = ["off", "minimal", "low", "medium", "high", "xhigh"];
 
 export default function (pi: ExtensionAPI) {
-  // Keep the footer status in sync with the current thinking level.
-  function updateStatus(level: ThinkingLevel) {
-    pi.ui?.setStatus("thinking", `thinking: ${level}`);
-  }
-
-  pi.on("thinking_level_select", async (event, ctx) => {
-    ctx.ui.setStatus("thinking", `thinking: ${event.level}`);
-  });
-
-  pi.on("session_start", async (_event, ctx) => {
-    ctx.ui.setStatus("thinking", `thinking: ${pi.getThinkingLevel()}`);
-  });
-
   pi.registerCommand("thinking", {
     description: "Get or set the thinking level (off | minimal | low | medium | high | xhigh)",
     getArgumentCompletions: (prefix) => {
