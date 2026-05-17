@@ -3,6 +3,9 @@ pi/.pi/agent/auth.json
 pi/.pi/agent/sessions/
 pi/.pi/agent/settings.json
 
+# zsh files we don't want accidentally commited
+.zsh_history
+
 # macOS
 .DS_Store
 
