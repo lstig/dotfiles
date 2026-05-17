@@ -10,14 +10,21 @@ target structure under `$HOME`.
 dotfiles/
 ├── AGENTS.md           # Instructions for the pi agent when working in THIS repo
 ├── README.md           # This file
-└── pi/                 # Stow package for the `pi` coding agent
-    └── .pi/
-        └── agent/
-            ├── AGENTS.md     # Global instructions loaded by pi at startup
-            ├── extensions/   # Local pi extensions
-            ├── skills/       # Local pi skills
-            ├── prompts/      # Local prompt templates
-            └── themes/       # Local pi themes
+├── pi/                 # Stow package for the `pi` coding agent
+│   └── .pi/
+│       └── agent/
+│           ├── AGENTS.md     # Global instructions loaded by pi at startup
+│           ├── extensions/   # Local pi extensions
+│           ├── skills/       # Local pi skills
+│           ├── prompts/      # Local prompt templates
+│           └── themes/       # Local pi themes
+└── zsh/                # Stow package for zsh configuration
+    ├── .zshenv               # Sets ZDOTDIR to ~/.config/zsh
+    └── .config/
+        └── zsh/
+            ├── .zshrc        # Main zsh config
+            ├── conf.d/       # Modular config fragments (sourced in order)
+            └── custom/       # Custom plugins and overrides
 ```
 
 After stowing, the `pi/.pi/agent/...` tree is symlinked to `~/.pi/agent/...`,
