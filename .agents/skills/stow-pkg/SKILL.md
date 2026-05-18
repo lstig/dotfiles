@@ -22,9 +22,10 @@ nvim/
 
 1. **Determine the package name and files** — ask the user if not provided. Common names: `git`, `nvim`, `ssh`, `tmux`, `starship`.
 
-2. **Create the directory tree** inside the repo:
+2. **Create the directory tree** inside the repo (resolve the repo root with `git rev-parse --show-toplevel`):
    ```bash
-   mkdir -p dotfiles/<name>/<home-relative-path>
+   DOTFILES=$(git rev-parse --show-toplevel)
+   mkdir -p "$DOTFILES/<name>/<home-relative-path>"
    ```
    Mirror the exact path under `$HOME`. For `~/.config/foo/config.toml` use `<name>/.config/foo/config.toml`.
 
@@ -32,13 +33,13 @@ nvim/
 
 4. **Dry-run stow** to confirm no conflicts:
    ```bash
-   stow -nv -t "$HOME" -d /Users/lstigdon/Code/lstig/dotfiles <name>
+   stow -nv -t "$HOME" -d "$(git rev-parse --show-toplevel)" <name>
    ```
    If conflicts are reported, show them to the user and ask how to resolve before proceeding.
 
 5. **Stow for real**:
    ```bash
-   stow -v -R -t "$HOME" -d /Users/lstigdon/Code/lstig/dotfiles <name>
+   stow -v -R -t "$HOME" -d "$(git rev-parse --show-toplevel)" <name>
    ```
 
 6. **Update `README.md`** — add the new package to the packages table.
