@@ -4,6 +4,10 @@ Personal dotfiles and customizations, organized as [GNU Stow](https://www.gnu.or
 packages. Each top-level directory is a stow package whose contents mirror the
 target structure under `$HOME`.
 
+> [!WARNING]
+> I don't recommend using these dotfiles verbatim since they contain configuration highly specific to my workflow.
+> Having said that, I do hope they serve a good example or starting point for your own dotfiles. 
+
 ## Layout
 
 ```
