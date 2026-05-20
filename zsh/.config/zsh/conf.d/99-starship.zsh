@@ -1,3 +1,8 @@
+if (( ! $+commands[starship] )); then
+  echo "Warning: starship not found. Please install starship and ensure it's in your PATH."
+  return
+fi
+
 # ZSH has a quirk where `preexec` is only run if a command is actually run (i.e
 # pressing ENTER at an empty command line will not cause preexec to fire). This
 # can cause timing issues, as a user who presses "ENTER" without running a command
@@ -13,7 +18,7 @@ zmodload zsh/parameter  # Needed to access jobstates variable for STARSHIP_JOBS_
 if [[ $ZSH_VERSION == ([1-4]*) ]]; then
     # ZSH <= 5; Does not have a built-in variable so we will rely on Starship's inbuilt time function.
     __starship_get_time() {
-        STARSHIP_CAPTURED_TIME=$(/opt/homebrew/bin/starship time)
+        STARSHIP_CAPTURED_TIME=$(starship time)
     }
 else
     zmodload zsh/datetime
@@ -97,6 +102,6 @@ VIRTUAL_ENV_DISABLE_PROMPT=1
 
 setopt promptsubst
 
-PROMPT='$('/opt/homebrew/bin/starship' prompt --terminal-width="$COLUMNS" --keymap="${KEYMAP:-}" --status="${STARSHIP_CMD_STATUS:-}" --pipestatus="${STARSHIP_PIPE_STATUS[*]:-}" --cmd-duration="${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
-RPROMPT='$('/opt/homebrew/bin/starship' prompt --right --terminal-width="$COLUMNS" --keymap="${KEYMAP:-}" --status="${STARSHIP_CMD_STATUS:-}" --pipestatus="${STARSHIP_PIPE_STATUS[*]:-}" --cmd-duration="${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
-PROMPT2="$(/opt/homebrew/bin/starship prompt --continuation)"
+PROMPT='$('starship' prompt --terminal-width="$COLUMNS" --keymap="${KEYMAP:-}" --status="${STARSHIP_CMD_STATUS:-}" --pipestatus="${STARSHIP_PIPE_STATUS[*]:-}" --cmd-duration="${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
+RPROMPT='$('starship' prompt --right --terminal-width="$COLUMNS" --keymap="${KEYMAP:-}" --status="${STARSHIP_CMD_STATUS:-}" --pipestatus="${STARSHIP_PIPE_STATUS[*]:-}" --cmd-duration="${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
+PROMPT2="$(starship prompt --continuation)"
