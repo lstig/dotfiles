@@ -22,6 +22,9 @@ dotfiles/
 │           ├── skills/       # Local pi skills
 │           ├── prompts/      # Local prompt templates
 │           └── themes/       # Local pi themes
+├── starship/           # Stow package for Starship prompt
+│   └── .config/
+│       └── starship.toml     # Starship prompt configuration
 └── zsh/                # Stow package for zsh configuration
     ├── .zshenv               # Sets ZDOTDIR to ~/.config/zsh
     └── .config/
