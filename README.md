@@ -22,8 +22,10 @@ dotfiles/
 │           ├── skills/       # Local pi skills
 │           ├── prompts/      # Local prompt templates
 │           └── themes/       # Local pi themes
-├── starship/           # Stow package for Starship prompt
+├── terminal/           # Stow package for terminal tools (Ghostty + Starship)
 │   └── .config/
+│       ├── ghostty/
+│       │   └── config        # Ghostty terminal configuration
 │       └── starship.toml     # Starship prompt configuration
 └── zsh/                # Stow package for zsh configuration
     ├── .zshenv               # Sets ZDOTDIR to ~/.config/zsh
