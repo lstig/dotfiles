@@ -33,6 +33,17 @@ yt-dl () {
     ARGS+=("--cookies" "$COOKIES")
   fi
 
+  # fall back to todo.txt as a batch file when no URLs were passed
+  if [ $# -eq 0 ]; then
+    echo "No arguments passed; looking for a todo.txt batch file..."
+    if [ -f "todo.txt" ] && [[ "$(head -n 1 todo.txt)" =~ ^https?:// ]]; then
+      echo "Found todo.txt; adding '--batch-file todo.txt' to command arguments"
+      ARGS+=("--batch-file" "todo.txt")
+    else
+      echo "Warning: no todo.txt found in working directory"
+    fi
+  fi
+
   # run the command
   yt-dlp "${ARGS[@]}" "$@"
 }
