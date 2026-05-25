@@ -1,0 +1,7 @@
+# Global .gitignore file
+.tool-versions
+__scratch/
+.idea/
+.DS_Store
+
+**/.claude/settings.local.json

@@ -1,0 +1,47 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Luke Stigdon
+	signingkey = ~/.ssh/id_rsa.pub
+[init]
+	defaultBranch = main
+[pull]
+	rebase = false
+[core]
+	excludesFile = ~/.config/git/ignore
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
+
+[includeIf "hasconfig:remote.*.url:git@gitlab.com:*/**"]
+	path = ~/.config/git/gitlab
+
+[includeIf "hasconfig:remote.*.url:https://gitlab.com/**"]
+	path = ~/.config/git/gitlab
+
+[includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
+	path = ~/.config/git/github
+
+[includeIf "hasconfig:remote.*.url:https://github.com/**"]
+	path = ~/.config/git/github
+
+[includeIf "hasconfig:remote.*.url:git@codeberg.org:*/**"]
+	path = ~/.config/git/codeberg
+
+[includeIf "hasconfig:remote.*.url:https://codeberg.org/**"]
+	path = ~/.config/git/codeberg
+
+[includeIf "hasconfig:remote.*.url:git@git.lan.stignet.com:*/**"]
+	path = ~/.config/git/local
+
+[includeIf "hasconfig:remote.*.url:https://git.lan.stignet.com/**"]
+	path = ~/.config/git/local
+[format]
+	signoff = true
+[gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed_signers

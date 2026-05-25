@@ -22,6 +22,16 @@ dotfiles/
 │           ├── skills/       # Local pi skills
 │           ├── prompts/      # Local prompt templates
 │           └── themes/       # Local pi themes
+├── git/                # Stow package for git configuration
+│   ├── .gitconfig            # Main git config (user, signing, includes)
+│   └── .config/
+│       └── git/
+│           ├── ignore        # Global .gitignore
+│           ├── allowed_signers  # SSH signing allowed signers
+│           ├── github        # GitHub-specific email (includeIf)
+│           ├── gitlab        # GitLab-specific email (includeIf)
+│           ├── codeberg      # Codeberg-specific email (includeIf)
+│           └── local         # Self-hosted Gitea email (includeIf)
 ├── terminal/           # Stow package for terminal tools (Ghostty + Starship)
 │   └── .config/
 │       ├── ghostty/
