@@ -1,14 +1,12 @@
 return {
   {
     "echasnovski/mini.surround",
-    init = function()
-      require("mini.surround").setup()
-    end,
+    event = "VeryLazy",
+    opts = {},
   },
   {
     "echasnovski/mini.pairs",
-    init = function()
-      require("mini.pairs").setup()
-    end,
+    event = "VeryLazy",
+    opts = {},
   },
 }

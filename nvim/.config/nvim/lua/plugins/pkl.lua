@@ -1,3 +1,7 @@
 return {
-  "apple/pkl-neovim",
+  {
+    "apple/pkl-neovim",
+    ft = "pkl",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+  },
 }

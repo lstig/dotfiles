@@ -1,0 +1,1 @@
+-- Autocommands go here. Filetype-specific overrides live in after/ftplugin/.
