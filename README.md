@@ -32,6 +32,13 @@ dotfiles/
 │           ├── gitlab        # GitLab-specific email (includeIf)
 │           ├── codeberg      # Codeberg-specific email (includeIf)
 │           └── local         # Self-hosted Gitea email (includeIf)
+├── nvim/               # Stow package for Neovim configuration
+│   └── .config/
+│       └── nvim/
+│           ├── init.lua        # Entry point
+│           ├── lazy-lock.json  # lazy.nvim plugin lockfile
+│           ├── lua/            # Lua config and plugin specs
+│           └── after/          # ftplugin and after/plugin overrides
 ├── terminal/           # Stow package for terminal tools (Ghostty + Starship)
 │   └── .config/
 │       ├── ghostty/
