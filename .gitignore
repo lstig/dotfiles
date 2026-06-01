@@ -1,7 +1,25 @@
-# Never commit pi runtime state
-pi/.pi/agent/auth.json
-pi/.pi/agent/sessions/
-pi/.pi/agent/settings.json
+# Explicitly allow only certain files for the AI agent packages
+pi/**/*
+!pi/.pi
+!pi/.pi/agent
+!pi/.pi/agent/extensions
+!pi/.pi/agent/extensions/**/*
+!pi/.pi/agent/prompts
+!pi/.pi/agent/prompts/**/*
+!pi/.pi/agent/skills
+!pi/.pi/agent/skills/**/*
+!pi/.pi/agent/themes
+!pi/.pi/agent/themes/**/*
+!pi/.pi/agent/AGENTS.md
+claude/**/*
+!claude/.claude
+!claude/.claude/agents
+!claude/.claude/agents/**/*
+!claude/.claude/commands
+!claude/.claude/commands/**/*
+!claude/.claude/skills
+!claude/.claude/skills/**/*
+!claude/.claude/CLAUDE.md
 
 # ignore local worktrees created by claude
 .claude/worktrees/
