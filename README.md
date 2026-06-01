@@ -22,6 +22,11 @@ dotfiles/
 │           ├── skills/       # Local pi skills
 │           ├── prompts/      # Local prompt templates
 │           └── themes/       # Local pi themes
+├── claude/             # Stow package for Claude Code (user-level resources)
+│   └── .claude/
+│       ├── agents/       # Custom subagents (.md)
+│       ├── commands/     # Custom slash commands (.md)
+│       └── skills/       # User-level skills (.md)
 ├── git/                # Stow package for git configuration
 │   ├── .gitconfig            # Main git config (user, signing, includes)
 │   └── .config/
@@ -78,6 +83,12 @@ example `~/.pi/agent/settings.json`), move that file aside and re-run. We
 deliberately do *not* stow `settings.json` because pi mutates it (e.g.
 `lastChangelogVersion`); keep that as a real file in `~/.pi/agent/` and check in
 only the resources you want under version control.
+
+The same rule applies to the `claude/` package: only user-authored resources
+(`agents/`, `commands/`, `skills/`) are stowed. Runtime state and machine-mutated
+files (`settings.json`, `.credentials.json`, `projects/`, `sessions/`,
+`history.jsonl`, `cache/`, `plugins/`, `daemon*`, etc.) stay as real files in
+`~/.claude/` and must not be committed.
 
 ## Adding a new package
 
