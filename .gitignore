@@ -1,23 +1,22 @@
 # Explicitly allow only certain files for the AI agent packages
-pi/**/*
-!pi/.pi
-!pi/.pi/agent
-!pi/.pi/agent/extensions
-!pi/.pi/agent/extensions/**/*
-!pi/.pi/agent/prompts
-!pi/.pi/agent/prompts/**/*
-!pi/.pi/agent/skills
-!pi/.pi/agent/skills/**/*
-!pi/.pi/agent/themes
-!pi/.pi/agent/themes/**/*
-!pi/.pi/agent/AGENTS.md
-claude/**/*
-!claude/.claude
-!claude/.claude/agents
-!claude/.claude/agents/**/*
-!claude/.claude/skills
-!claude/.claude/skills/**/*
-!claude/.claude/CLAUDE.md
+agents/**/*
+!agents/.pi
+!agents/.pi/agent
+!agents/.pi/agent/extensions
+!agents/.pi/agent/extensions/**/*
+!agents/.pi/agent/prompts
+!agents/.pi/agent/prompts/**/*
+!agents/.pi/agent/skills
+!agents/.pi/agent/skills/**/*
+!agents/.pi/agent/themes
+!agents/.pi/agent/themes/**/*
+!agents/.pi/agent/AGENTS.md
+!agents/.claude
+!agents/.claude/agents
+!agents/.claude/agents/**/*
+!agents/.claude/skills
+!agents/.claude/skills/**/*
+!agents/.claude/CLAUDE.md
 
 # ignore local worktrees created by claude
 .claude/worktrees/

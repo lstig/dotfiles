@@ -12,21 +12,20 @@ target structure under `$HOME`.
 
 ```
 dotfiles/
-├── AGENTS.md           # Instructions for the pi agent when working in THIS repo
+├── AGENTS.md           # Instructions for AI agents when working in THIS repo
 ├── README.md           # This file
-├── pi/                 # Stow package for the `pi` coding agent
-│   └── .pi/
-│       └── agent/
-│           ├── AGENTS.md     # Global instructions loaded by pi at startup
-│           ├── extensions/   # Local pi extensions
-│           ├── skills/       # Local pi skills
-│           ├── prompts/      # Local prompt templates
-│           └── themes/       # Local pi themes
-├── claude/             # Stow package for Claude Code (user-level resources)
+├── agents/             # Stow package for AI coding agents (pi + Claude Code)
+│   ├── .pi/
+│   │   └── agent/
+│   │       ├── AGENTS.md     # Global instructions loaded by pi at startup
+│   │       ├── extensions/   # Local pi extensions
+│   │       ├── skills/       # Local pi skills
+│   │       ├── prompts/      # Local prompt templates
+│   │       └── themes/       # Local pi themes
 │   └── .claude/
-│       ├── agents/       # Custom subagents (.md)
-│       ├── commands/     # Custom slash commands (.md)
-│       └── skills/       # User-level skills (.md)
+│       ├── CLAUDE.md   # Global instructions loaded by Claude Code at startup
+│       ├── agents/     # Custom subagents (.md)
+│       └── skills/     # User-level skills (.md)
 ├── git/                # Stow package for git configuration
 │   ├── .gitconfig            # Main git config (user, signing, includes)
 │   └── .config/
@@ -58,8 +57,9 @@ dotfiles/
             └── custom/       # Custom plugins and overrides
 ```
 
-After stowing, the `pi/.pi/agent/...` tree is symlinked to `~/.pi/agent/...`,
-which is where the pi agent looks for global configuration and resources.
+After stowing, the `agents/.pi/agent/...` tree is symlinked to `~/.pi/agent/...`
+and `agents/.claude/...` is symlinked to `~/.claude/...`, which is where each
+agent looks for global configuration and resources.
 
 ## Install
 
@@ -68,27 +68,26 @@ Prerequisite: `brew install stow` (or your platform's equivalent).
 From the repo root:
 
 ```sh
-# Install the pi package (creates symlinks under ~)
-stow -v -t "$HOME" pi
+# Install the agents package (creates symlinks under ~)
+stow -v -t "$HOME" agents
 
 # Remove (unstow)
-stow -v -D -t "$HOME" pi
+stow -v -D -t "$HOME" agents
 
 # Re-stow after changes
-stow -v -R -t "$HOME" pi
+stow -v -R -t "$HOME" agents
 ```
 
 If stow refuses because a real file already exists at the target path (for
-example `~/.pi/agent/settings.json`), move that file aside and re-run. We
-deliberately do *not* stow `settings.json` because pi mutates it (e.g.
-`lastChangelogVersion`); keep that as a real file in `~/.pi/agent/` and check in
-only the resources you want under version control.
+example `~/.pi/agent/settings.json` or `~/.claude/settings.json`), move that
+file aside and re-run. We deliberately do *not* stow runtime state files
+because the agents mutate them; keep those as real files in `~/.pi/agent/` and
+`~/.claude/` and check in only the resources you want under version control.
 
-The same rule applies to the `claude/` package: only user-authored resources
-(`agents/`, `commands/`, `skills/`) are stowed. Runtime state and machine-mutated
-files (`settings.json`, `.credentials.json`, `projects/`, `sessions/`,
-`history.jsonl`, `cache/`, `plugins/`, `daemon*`, etc.) stay as real files in
-`~/.claude/` and must not be committed.
+Under `~/.claude/`, the machine-mutated files that must stay as real files
+(not symlinks) include `settings.json`, `.credentials.json`, `projects/`,
+`sessions/`, `history.jsonl`, `cache/`, `plugins/`, `daemon*`, etc. Only the
+user-authored resources (`CLAUDE.md`, `agents/`, `skills/`) are stowed.
 
 ## Adding a new package
 
@@ -96,11 +95,11 @@ files (`settings.json`, `.credentials.json`, `projects/`, `sessions/`,
 2. Inside it, recreate the target paths relative to `$HOME` (e.g. `zsh/.zshrc`, `git/.config/git/config`).
 3. `stow -t "$HOME" <package>` to install.
 
-## pi customizations
+## Agent customizations
 
-See [`pi/.pi/agent/AGENTS.md`](pi/.pi/agent/AGENTS.md) for the global agent
-instructions, and the sibling `extensions/`, `skills/`, `prompts/`, and
-`themes/` directories for resources. Reference docs:
+See [`agents/.pi/agent/AGENTS.md`](agents/.pi/agent/AGENTS.md) for the global
+pi agent instructions and the sibling `extensions/`, `skills/`, `prompts/`,
+and `themes/` directories for resources. Reference docs:
 
 - Extensions: `docs/extensions.md`
 - Skills: `docs/skills.md`
@@ -109,3 +108,7 @@ instructions, and the sibling `extensions/`, `skills/`, `prompts/`, and
 - Settings: `docs/settings.md`
 
 (Docs ship inside the installed `@earendil-works/pi-coding-agent` package.)
+
+See [`agents/.claude/CLAUDE.md`](agents/.claude/CLAUDE.md) for the global
+Claude Code instructions and the sibling `agents/` and `skills/` directories
+for custom subagents and user-level skills.
