@@ -31,6 +31,7 @@ These apply to every pi session for this user. Project-level `AGENTS.md` files t
 - **Never** force push, unless explicitly asked.
 - Default to `--force-with-lease` if a force push is genuinely needed.
 - Never amend or rebase commits authored by someone else.
+- Do all work for a task in a git worktree
 - Don't commit on behalf of the user unless asked. When asked, write a Conventional Commits–style message (`type(scope): subject`) and show the staged diff before committing.
 - Don't `git add -A` blindly — review what's staged.
 
