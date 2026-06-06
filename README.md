@@ -16,20 +16,25 @@ See [`CONTEXT.md`](./CONTEXT.md) for the vocabulary used in this repo
 
 ```
 dotfiles/
+├── README.md     # this file
 ├── AGENTS.md     # project instructions for this repo (symlinked as CLAUDE.md)
 ├── CONTEXT.md    # vocabulary used across the repo
-├── README.md     # this file
-├── agents/       # AI coding-agent customizations (Pi + Claude Code)
-├── git/          # git config, signing, per-forge identities
-├── nvim/         # Neovim config (lazy.nvim, ftplugin overrides)
-├── terminal/     # Ghostty + Starship config
-└── zsh/          # zsh config (XDG-based, modular conf.d/)
+├── docs/         # repo-wide docs (ADRs under docs/adr/)
+├── agents/       # Stow package: AI coding-agent customizations (Pi + Claude Code)
+├── git/          # Stow package: git config, signing, per-forge identities
+├── nvim/         # Stow package: Neovim config
+├── terminal/     # Stow package: Ghostty + Starship config
+└── zsh/          # Stow package: zsh config (XDG-based, modular conf.d/)
 ```
 
-Each stow package has its own `CONTEXT.md` describing its internal structure.
-Those `CONTEXT.md` files are excluded from stow installation via per-package
-`.stow-local-ignore`, so they stay in the repo and don't end up symlinked
-into `$HOME`.
+Each Stow package has its own `CONTEXT.md` describing its internal
+structure, excluded from stow installation via a per-package
+`.stow-local-ignore`.
+
+`docs/adr/` holds Architecture Decision Records ("ADRs") for repo-wide
+decisions that affect more than one package or skill (e.g. how vendored-skill
+frontmatter is reconciled during sync). Per-package decisions belong
+in the package's `CONTEXT.md` instead.
 
 ## Install
 
