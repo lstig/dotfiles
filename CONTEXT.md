@@ -83,15 +83,7 @@ _Avoid_: Local instructions, repo instructions
 ### Upstream sync
 
 **Sync**:
-The act of pulling upstream changes into Vendored skills via the
-`sync-upstream-skills` skill. Surfaces hunks where local has changed
-since the last recorded `source-rev:` as conflicts to resolve;
-otherwise applies upstream wholesale.
+Pulling upstream changes into Vendored skills via the
+`sync-upstream-skills` skill, using the `source-rev:` field in the
+Vendored skill's frontmatter as the merge base.
 _Avoid_: Update, refresh, pull
-
-**Source frontmatter**:
-The `source:`, `source-rev:`, and `source-author:` fields preserved
-in every Vendored skill's `SKILL.md`. `source:` and `source-author:`
-identify the upstream; `source-rev:` is the merge base for the next
-Sync. Local-wins on conflict — see
-[ADR 0001](docs/adr/0001-skill-frontmatter-overrides.md).
