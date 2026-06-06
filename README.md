@@ -4,6 +4,10 @@ Personal dotfiles and customizations, organized as [GNU Stow](https://www.gnu.or
 packages. Each top-level directory is a stow package whose contents mirror the
 target structure under `$HOME`.
 
+See [`CONTEXT.md`](./CONTEXT.md) for the vocabulary used in this repo
+(Agent, Skill, Stow package, Global instructions, Sync, etc.) and
+[`AGENTS.md`](./AGENTS.md) for instructions when editing it with an Agent.
+
 > [!WARNING]
 > I don't recommend using these dotfiles verbatim since they contain configuration highly specific to my workflow.
 > Having said that, I do hope they serve a good example or starting point for your own dotfiles. 
@@ -24,8 +28,8 @@ dotfiles/
 │   │       └── themes/       # Local pi themes
 │   └── .claude/
 │       ├── CLAUDE.md   # Global instructions loaded by Claude Code at startup
-│       ├── agents/     # Custom subagents (.md)
-│       └── skills/     # User-level skills (.md)
+│       ├── agents/     # Subagents (.md)
+│       └── skills/     # Claude Code skills (.md)
 ├── git/                # Stow package for git configuration
 │   ├── .gitconfig            # Main git config (user, signing, includes)
 │   └── .config/
@@ -111,4 +115,4 @@ and `themes/` directories for resources. Reference docs:
 
 See [`agents/.claude/CLAUDE.md`](agents/.claude/CLAUDE.md) for the global
 Claude Code instructions and the sibling `agents/` and `skills/` directories
-for custom subagents and user-level skills.
+for subagents and Claude Code skills.
