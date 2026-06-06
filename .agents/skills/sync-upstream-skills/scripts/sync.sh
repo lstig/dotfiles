@@ -18,6 +18,11 @@
 
 set -euo pipefail
 
+if ! command -v yq >/dev/null 2>&1; then
+  echo "sync.sh: requires yq (https://github.com/mikefarah/yq)" >&2
+  exit 1
+fi
+
 DOTFILES="$(git rev-parse --show-toplevel 2>/dev/null || true)"
 if [[ -z "$DOTFILES" || ! -d "$DOTFILES/agents" ]]; then
   echo "sync.sh: must be run inside the dotfiles repo (no agents/ found)" >&2
@@ -68,23 +73,7 @@ both()   { log "$*"; report "$*"; }
 # Pull a top-level scalar out of YAML frontmatter. Empty string if missing.
 fm_field() {
   # fm_field FILE KEY
-  awk -v key="$2" '
-    NR==1 && /^---[[:space:]]*$/ { in_yaml=1; next }
-    in_yaml && /^---[[:space:]]*$/ { exit }
-    in_yaml {
-      line=$0
-      sub(/^[[:space:]]+/, "", line)
-      if (index(line, key ":") == 1) {
-        v = substr(line, length(key) + 2)
-        sub(/^[[:space:]]+/, "", v)
-        sub(/[[:space:]]+$/, "", v)
-        gsub(/^"|"$/, "", v)
-        gsub(/^'\''|'\''$/, "", v)
-        print v
-        exit
-      }
-    }
-  ' "$1"
+  KEY="$2" yq --front-matter=extract '.[strenv(KEY)] // ""' "$1"
 }
 
 # https://github.com/OWNER/REPO/tree/BRANCH/PATH → "OWNER REPO BRANCH PATH"
@@ -118,23 +107,8 @@ ensure_repo() {
 
 # Rewrite the `source-rev:` line in a SKILL.md's frontmatter (insert if absent).
 update_source_rev() {
-  local f="$1" sha="$2" tmp
-  tmp="$(mktemp "$TMP_DIR/skillmd.XXXXXX")"
-  awk -v sha="$sha" '
-    BEGIN { in_yaml=0; done=0; saw_source=0 }
-    NR==1 && /^---[[:space:]]*$/ { in_yaml=1; print; next }
-    in_yaml && /^---[[:space:]]*$/ {
-      if (!done && saw_source) { print "source-rev: " sha; done=1 }
-      in_yaml=0; print; next
-    }
-    in_yaml && /^source-rev:[[:space:]]/ {
-      if (!done) { print "source-rev: " sha; done=1 }
-      next
-    }
-    in_yaml && /^source:[[:space:]]/ { saw_source=1; print; next }
-    { print }
-  ' "$f" > "$tmp"
-  mv "$tmp" "$f"
+  # update_source_rev FILE SHA
+  SHA="$2" yq --front-matter=process -i '.["source-rev"] = strenv(SHA)' "$1"
 }
 
 CONFLICTS=0
