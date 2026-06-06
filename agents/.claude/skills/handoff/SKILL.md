@@ -3,6 +3,7 @@ name: skill:handoff
 description: Compact the current conversation into a handoff document for another agent to pick up.
 argument-hint: "What will the next session be used for?"
 source: https://github.com/mattpocock/skills/tree/main/skills/productivity/handoff
+source-rev: be55a7970319ede7965edbb02b5e41cba1ca82c9
 source-author: Matt Pocock
 ---
 
