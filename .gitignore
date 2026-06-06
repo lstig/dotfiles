@@ -1,5 +1,7 @@
 # Explicitly allow only certain files for the AI agent packages
 agents/**/*
+!agents/CONTEXT.md
+!agents/.stow-local-ignore
 !agents/.pi
 !agents/.pi/agent
 !agents/.pi/agent/extensions

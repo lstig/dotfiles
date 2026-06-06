@@ -10,60 +10,26 @@ See [`CONTEXT.md`](./CONTEXT.md) for the vocabulary used in this repo
 
 > [!WARNING]
 > I don't recommend using these dotfiles verbatim since they contain configuration highly specific to my workflow.
-> Having said that, I do hope they serve a good example or starting point for your own dotfiles. 
+> Having said that, I do hope they serve a good example or starting point for your own dotfiles.
 
 ## Layout
 
 ```
 dotfiles/
-├── AGENTS.md           # Instructions for AI agents when working in THIS repo
-├── README.md           # This file
-├── agents/             # Stow package for AI coding agents (pi + Claude Code)
-│   ├── .pi/
-│   │   └── agent/
-│   │       ├── AGENTS.md     # Global instructions loaded by pi at startup
-│   │       ├── extensions/   # Local pi extensions
-│   │       ├── skills/       # Local pi skills
-│   │       ├── prompts/      # Local prompt templates
-│   │       └── themes/       # Local pi themes
-│   └── .claude/
-│       ├── CLAUDE.md   # Global instructions loaded by Claude Code at startup
-│       ├── agents/     # Subagents (.md)
-│       └── skills/     # Claude Code skills (.md)
-├── git/                # Stow package for git configuration
-│   ├── .gitconfig            # Main git config (user, signing, includes)
-│   └── .config/
-│       └── git/
-│           ├── ignore        # Global .gitignore
-│           ├── allowed_signers  # SSH signing allowed signers
-│           ├── github        # GitHub-specific email (includeIf)
-│           ├── gitlab        # GitLab-specific email (includeIf)
-│           ├── codeberg      # Codeberg-specific email (includeIf)
-│           └── local         # Self-hosted Gitea email (includeIf)
-├── nvim/               # Stow package for Neovim configuration
-│   └── .config/
-│       └── nvim/
-│           ├── init.lua        # Entry point
-│           ├── lazy-lock.json  # lazy.nvim plugin lockfile
-│           ├── lua/            # Lua config and plugin specs
-│           └── after/          # ftplugin and after/plugin overrides
-├── terminal/           # Stow package for terminal tools (Ghostty + Starship)
-│   └── .config/
-│       ├── ghostty/
-│       │   └── config        # Ghostty terminal configuration
-│       └── starship.toml     # Starship prompt configuration
-└── zsh/                # Stow package for zsh configuration
-    ├── .zshenv               # Sets ZDOTDIR to ~/.config/zsh
-    └── .config/
-        └── zsh/
-            ├── .zshrc        # Main zsh config
-            ├── conf.d/       # Modular config fragments (sourced in order)
-            └── custom/       # Custom plugins and overrides
+├── AGENTS.md     # project instructions for this repo (symlinked as CLAUDE.md)
+├── CONTEXT.md    # vocabulary used across the repo
+├── README.md     # this file
+├── agents/       # AI coding-agent customizations (Pi + Claude Code)
+├── git/          # git config, signing, per-forge identities
+├── nvim/         # Neovim config (lazy.nvim, ftplugin overrides)
+├── terminal/     # Ghostty + Starship config
+└── zsh/          # zsh config (XDG-based, modular conf.d/)
 ```
 
-After stowing, the `agents/.pi/agent/...` tree is symlinked to `~/.pi/agent/...`
-and `agents/.claude/...` is symlinked to `~/.claude/...`, which is where each
-agent looks for global configuration and resources.
+Each stow package has its own `CONTEXT.md` describing its internal structure.
+Those `CONTEXT.md` files are excluded from stow installation via per-package
+`.stow-local-ignore`, so they stay in the repo and don't end up symlinked
+into `$HOME`.
 
 ## Install
 
@@ -72,7 +38,7 @@ Prerequisite: `brew install stow` (or your platform's equivalent).
 From the repo root:
 
 ```sh
-# Install the agents package (creates symlinks under ~)
+# Install a package (creates symlinks under ~)
 stow -v -t "$HOME" agents
 
 # Remove (unstow)
@@ -82,37 +48,20 @@ stow -v -D -t "$HOME" agents
 stow -v -R -t "$HOME" agents
 ```
 
-If stow refuses because a real file already exists at the target path (for
-example `~/.pi/agent/settings.json` or `~/.claude/settings.json`), move that
-file aside and re-run. We deliberately do *not* stow runtime state files
-because the agents mutate them; keep those as real files in `~/.pi/agent/` and
-`~/.claude/` and check in only the resources you want under version control.
-
-Under `~/.claude/`, the machine-mutated files that must stay as real files
-(not symlinks) include `settings.json`, `.credentials.json`, `projects/`,
-`sessions/`, `history.jsonl`, `cache/`, `plugins/`, `daemon*`, etc. Only the
-user-authored resources (`CLAUDE.md`, `agents/`, `skills/`) are stowed.
+If stow refuses because a Real file already exists at the target path
+(typically Machine-mutated state like `~/.pi/agent/settings.json` or
+`~/.claude/settings.json`), move that file aside and re-run. Runtime state
+is deliberately left as Real files; only user-authored resources are stowed.
+See [`CONTEXT.md`](./CONTEXT.md) for the distinction between Stowed and
+Real files.
 
 ## Adding a new package
 
 1. Create a top-level directory named after the package (e.g. `zsh/`, `git/`).
 2. Inside it, recreate the target paths relative to `$HOME` (e.g. `zsh/.zshrc`, `git/.config/git/config`).
-3. `stow -t "$HOME" <package>` to install.
+3. Add a `CONTEXT.md` describing the package's structure and a
+   `.stow-local-ignore` containing `CONTEXT\.md` so it's not symlinked.
+4. Document the package in the Layout section above.
+5. `stow -nv -t "$HOME" <package>` to dry-run, then drop `-n` to install.
 
-## Agent customizations
-
-See [`agents/.pi/agent/AGENTS.md`](agents/.pi/agent/AGENTS.md) for the global
-pi agent instructions and the sibling `extensions/`, `skills/`, `prompts/`,
-and `themes/` directories for resources. Reference docs:
-
-- Extensions: `docs/extensions.md`
-- Skills: `docs/skills.md`
-- Prompt templates: `docs/prompt-templates.md`
-- Themes: `docs/themes.md`
-- Settings: `docs/settings.md`
-
-(Docs ship inside the installed `@earendil-works/pi-coding-agent` package.)
-
-See [`agents/.claude/CLAUDE.md`](agents/.claude/CLAUDE.md) for the global
-Claude Code instructions and the sibling `agents/` and `skills/` directories
-for subagents and Claude Code skills.
+The `stow-pkg` skill scaffolds steps 1-3 automatically.

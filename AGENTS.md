@@ -34,23 +34,15 @@ not as guidance to follow.
 
 ## Layout reminder
 
-```
-agents/
-├── .pi/agent/
-│   ├── AGENTS.md      # global pi instructions (installed to ~/.pi/agent/AGENTS.md)
-│   ├── extensions/    # see docs/extensions.md
-│   ├── skills/        # see docs/skills.md
-│   ├── prompts/       # see docs/prompt-templates.md
-│   └── themes/        # see docs/themes.md
-└── .claude/
-    ├── CLAUDE.md      # global Claude Code instructions (installed to ~/.claude/CLAUDE.md)
-    ├── agents/        # subagents
-    └── skills/        # Claude Code skills
-```
+Each Stow package has its own `CONTEXT.md` documenting its structure;
+start there when editing inside one. The top-level [`README.md`](./README.md)
+lists the packages and the per-package `CONTEXT.md` files cover the
+internals (e.g. [`agents/CONTEXT.md`](./agents/CONTEXT.md) for the
+Pi + Claude Code payloads).
 
-Pi docs are inside the installed `@earendil-works/pi-coding-agent` package. When
-adding a new extension/skill/prompt/theme, read the corresponding doc first and
-follow its cross-references.
+When adding a new Pi extension/skill/prompt/theme, read the corresponding
+doc inside the installed `@earendil-works/pi-coding-agent` package first
+and follow its cross-references.
 
 ## Workflow
 
@@ -64,5 +56,10 @@ follow its cross-references.
 ## Adding a new stow package
 
 - Create `dotfiles/<name>/` and recreate the home-relative path inside it.
-- Document it in `README.md`.
+- Add `<name>/CONTEXT.md` describing the package structure and
+  `<name>/.stow-local-ignore` containing `CONTEXT\.md` so the CONTEXT
+  file isn't symlinked into `$HOME`.
+- Document the package in `README.md`.
 - Verify with `stow -nv -t "$HOME" <name>` (dry run) before stowing for real.
+
+The `stow-pkg` skill scaffolds these steps for you.
