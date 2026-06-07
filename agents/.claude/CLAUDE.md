@@ -45,6 +45,7 @@ Unless a project says otherwise:
 - **Go:** `go fmt ./...` and `go vet ./...` before declaring done.
 - **Shell:** target `bash`/`zsh` on macOS; quote variables; use `set -euo pipefail` in scripts.
 - **YAML:** use `.yaml` for file extension; never `.yml` unless told by the user or overridden by the local project. Run `yamllint` before declaring done.
+- **Markdown:** one sentence per line; one blank line between sections (paragraphs, headers, lists, code blocks). Prefer native Markdown syntax over inline HTML.
 
 After making code changes, run the project's check/test command (look for `Makefile`, `Taskfile.yml`, `Taskfile.yaml`, `justfile`, `package.json` scripts, `pyproject.toml`) before reporting success.
 
@@ -53,10 +54,3 @@ After making code changes, run the project's check/test command (look for `Makef
 - Never print secrets to the terminal or write them to files.
 - If a task needs a secret, request user intervention or pass via env var; do not persist.
 - If you encounter what looks like a leaked secret in a file or diff, stop and flag it before continuing.
-
-## Dotfiles awareness
-
-Files under `~/.pi/agent/` (including this one) are symlinks managed by the
-dotfiles repo at `~/Code/lstig/dotfiles`. When asked to "edit my pi config" or
-similar, edit the file at its canonical path inside that repo so the change is
-version-controlled. After edits, remind me to `/reload`.
