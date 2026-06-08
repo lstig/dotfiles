@@ -17,7 +17,7 @@ dotfiles/
 ├── AGENTS.md     # project instructions for this repo (symlinked as CLAUDE.md)
 ├── CONTEXT.md    # vocabulary used across the repo
 ├── docs/         # repo-wide docs (ADRs under docs/adr/)
-├── agents/       # Stow package: AI coding-agent customizations (Pi + Claude Code)
+├── agents/       # Stow package: AI coding-agent customizations
 ├── git/          # Stow package: git config, signing, per-forge identities
 ├── nvim/         # Stow package: Neovim config
 ├── terminal/     # Stow package: Ghostty + Starship config
