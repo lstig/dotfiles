@@ -1,23 +1,30 @@
 # agents package
 
-Stow package for AI coding-agent customizations. Installs symlinks under
-`~/.pi/agent/` (Pi) and `~/.claude/` (Claude Code).
+Stow package for AI coding-agent customizations.
+Installs symlinks under `~/.agents/` (canonical, agent-agnostic), `~/.pi/agent/` (Pi), and `~/.claude/` (Claude Code).
 
 ## Structure
 
 ```
+.agents/
+└── skills/         # canonical skills home (shared across agents)
+
 .pi/agent/
 ├── AGENTS.md       # global Pi instructions
 ├── extensions/     # local Pi extensions (see docs/extensions.md)
-├── skills/         # local Pi skills (see docs/skills.md)
+├── skills -> ../../.agents/skills    # symlink to canonical skills
 ├── prompts/        # local prompt templates (see docs/prompt-templates.md)
 └── themes/         # local Pi themes (see docs/themes.md)
 
 .claude/
 ├── CLAUDE.md       # global Claude Code instructions
 ├── agents/         # Claude Code subagents
-└── skills/         # Claude Code skills (vendored and locally-authored)
+└── skills -> ../.agents/skills       # symlink to canonical skills
 ```
+
+Skills live exactly once at `.agents/skills/`.
+Per-agent skill directories (`.claude/skills`, `.pi/agent/skills`) are relative symlinks into that canonical tree, so every agent sees the same skill set.
+When a new agent tool is added, point its skills directory at `.agents/skills/` the same way.
 
 Pi reference docs ship inside the installed `@earendil-works/pi-coding-agent`
 package.
