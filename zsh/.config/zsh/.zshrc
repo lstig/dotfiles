@@ -23,7 +23,7 @@ HISTFILE="$HOME/.zsh_history"
 HISTORY_IGNORE='(^yt-dl)'
 
 # load oh-my-zsh
-plugins=(media-tools direnv)
+plugins=(media-tools direnv claude)
 source $ZSH/oh-my-zsh.sh
 setopt extendedglob
 
