@@ -6,7 +6,7 @@
 #
 # Copies the skill directory into agents/.claude/skills/<basename>/ and
 # rewrites SKILL.md frontmatter so sync-upstream-skills can track it:
-#   - name:           prefixed with "skill:"
+#   - name:           the skill's directory basename (if unset upstream)
 #   - source:         the input URL
 #   - source-rev:     upstream HEAD SHA
 #   - source-author:  owner's GitHub display name (falls back to login)
@@ -100,12 +100,11 @@ cp -R "$SRC"/. "$DEST"/
 SKILL_MD="$DEST/SKILL.md"
 
 # Rewrite frontmatter:
-#   - ensure `name` exists (default to the directory basename) and is `skill:`-prefixed
+#   - ensure `name` exists (default to the directory basename)
 #   - set source / source-rev / source-author
 SKILL_NAME_VAL="$SKILL_NAME" URL_VAL="$URL" REV_VAL="$REV" AUTHOR_VAL="$AUTHOR" \
 yq --front-matter=process -i '
   .name = (.name // strenv(SKILL_NAME_VAL)) |
-  .name = (if (.name | test("^skill:")) then .name else "skill:" + .name end) |
   .source = strenv(URL_VAL) |
   .["source-rev"] = strenv(REV_VAL) |
   .["source-author"] = strenv(AUTHOR_VAL)

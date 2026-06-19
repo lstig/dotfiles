@@ -25,12 +25,12 @@ Loaded by Pi from `agents/.pi/agent/skills/` and by Claude Code from `agents/.cl
 _Avoid_: Plugin, command, macro
 
 **Vendored skill**:
-A Skill copied from an upstream repo (typically `mattpocock/skills`), tracked with `source:`, `source-rev:`, and `source-author:` frontmatter and a `skill:`-prefixed `name:`.
+A Skill copied from an upstream repo (typically `mattpocock/skills`), tracked with `source:`, `source-rev:`, and `source-author:` frontmatter.
 Synced via the `sync-upstream-skills` skill.
 _Avoid_: Upstream skill, imported skill, third-party skill
 
 **Locally-authored skill**:
-A Skill written from scratch in this repo, with no `source:` frontmatter and no `skill:` name prefix.
+A Skill written from scratch in this repo, with no `source:` frontmatter.
 _Avoid_: Custom skill, own skill, in-house skill
 
 ### Stow layout

@@ -1,6 +1,6 @@
 ---
 name: add-upstream-skill
-description: Vendor a new upstream skill from a GitHub URL into agents/.claude/skills/, writing source/source-rev/source-author frontmatter and prefixing name with `skill:` so sync-upstream-skills can track it. Use when the user wants to add, import, or vendor a new skill from an upstream repo.
+description: Vendor a new upstream skill from a GitHub URL into agents/.claude/skills/, writing source/source-rev/source-author frontmatter so sync-upstream-skills can track it. Use when the user wants to add, import, or vendor a new skill from an upstream repo.
 argument-hint: "GitHub tree URL of the upstream skill"
 ---
 
@@ -29,7 +29,7 @@ The script:
 2. Clones or refreshes the source repo in the shared sync cache.
 3. Copies the skill directory to `agents/.claude/skills/<skill-name>/`.
 4. Rewrites `SKILL.md` frontmatter:
-   - `name:` is prefixed with `skill:` (no-op if already prefixed)
+   - `name:` ← upstream value, or the directory basename if upstream omits it
    - `source:` ← input URL
    - `source-rev:` ← upstream HEAD SHA at clone time
    - `source-author:` ← owner's GitHub display name (falls back to login if `gh` is unavailable)

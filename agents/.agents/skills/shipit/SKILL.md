@@ -1,5 +1,5 @@
 ---
-name: skill:shipit
+name: shipit
 description: Commit changes, merge to main, and remove the old worktree
 disable-model-invocation: true
 ---

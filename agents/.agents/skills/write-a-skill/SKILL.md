@@ -1,5 +1,5 @@
 ---
-name: skill:write-a-skill
+name: write-a-skill
 description: Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.
 source: https://github.com/mattpocock/skills/tree/main/skills/productivity/write-a-skill
 source-rev: be55a7970319ede7965edbb02b5e41cba1ca82c9

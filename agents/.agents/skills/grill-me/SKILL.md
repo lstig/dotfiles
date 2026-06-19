@@ -1,5 +1,5 @@
 ---
-name: skill:grill-me
+name: grill-me
 description: Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions "grill me".
 source: https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me
 source-rev: be55a7970319ede7965edbb02b5e41cba1ca82c9
