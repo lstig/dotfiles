@@ -1,6 +1,6 @@
 return {
   {
-    "jamessan/vim-gnupg",
-    event = { "BufReadPre *.gpg", "BufReadPre *.asc" },
-  },
+    "benoror/gpg.nvim",
+    ft = { "gpg", "asc", "pgp" },
+  }
 }
