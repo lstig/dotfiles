@@ -1,4 +1,4 @@
--- Go specific settings
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = false
+-- Go specific settings (buffer-local so they don't leak to other filetypes)
+vim.opt_local.tabstop = 4
+vim.opt_local.shiftwidth = 4
+vim.opt_local.expandtab = false
