@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+# always source ~/.envrc before loading the current .envrc
+if [ -f "$HOME/.envrc" ] && [ "$PWD" != "$HOME" ]; then
+    source_env "$HOME/.envrc"
+fi

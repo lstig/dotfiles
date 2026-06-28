@@ -1,0 +1,12 @@
+# direnv configuration
+# https://direnv.net/man/direnv.toml.1.html
+
+[global]
+# Hide the "direnv: export +FOO" diff when entering a directory.
+hide_env_diff = true
+
+# Warn if a .envrc takes longer than this (seconds) to load.
+warn_timeout = "5s"
+
+# If set to true, the .envrc will be loaded with set -euo pipefail
+strict_env = true
