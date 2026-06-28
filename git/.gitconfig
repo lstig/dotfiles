@@ -18,16 +18,35 @@
 [gpg]
 	format = ssh
 
-[includeIf "hasconfig:remote.*.url:**gitlab.com*/**"]
+# Match remotes by host across scheme URLs (ssh://, https://, with/without
+# port) and scp-style (git@host:owner/repo). A bare leading "**" only crosses
+# "/" when followed by a slash, so the scheme must be anchored explicitly.
+[includeIf "hasconfig:remote.*.url:*://**gitlab.com/**"]
+    path = ~/.config/git/gitlab
+[includeIf "hasconfig:remote.*.url:*://**gitlab.com:*/**"]
+    path = ~/.config/git/gitlab
+[includeIf "hasconfig:remote.*.url:*gitlab.com:*/**"]
     path = ~/.config/git/gitlab
 
-[includeIf "hasconfig:remote.*.url:**github.com*/**"]
+[includeIf "hasconfig:remote.*.url:*://**github.com/**"]
+    path = ~/.config/git/github
+[includeIf "hasconfig:remote.*.url:*://**github.com:*/**"]
+    path = ~/.config/git/github
+[includeIf "hasconfig:remote.*.url:*github.com:*/**"]
     path = ~/.config/git/github
 
-[includeIf "hasconfig:remote.*.url:**codeberg.org/**"]
+[includeIf "hasconfig:remote.*.url:*://**codeberg.org/**"]
+    path = ~/.config/git/codeberg
+[includeIf "hasconfig:remote.*.url:*://**codeberg.org:*/**"]
+    path = ~/.config/git/codeberg
+[includeIf "hasconfig:remote.*.url:*codeberg.org:*/**"]
     path = ~/.config/git/codeberg
 
-[includeIf "hasconfig:remote.*.url:**git.lan.stignet.com/**"]
+[includeIf "hasconfig:remote.*.url:*://**git.lan.stignet.com/**"]
+    path = ~/.config/git/local
+[includeIf "hasconfig:remote.*.url:*://**git.lan.stignet.com:*/**"]
+    path = ~/.config/git/local
+[includeIf "hasconfig:remote.*.url:*git.lan.stignet.com:*/**"]
     path = ~/.config/git/local
 
 [format]

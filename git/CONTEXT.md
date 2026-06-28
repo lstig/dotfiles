@@ -16,5 +16,11 @@ Stow package for git configuration. Installs `~/.gitconfig` and
 └── local                   # self-hosted Gitea email (includeIf)
 ```
 
-The per-forge files are sourced via `includeIf gitdir:` directives in
-`.gitconfig` so each remote uses the correct identity.
+The per-forge files are sourced via `includeIf "hasconfig:remote.*.url:..."`
+directives in `.gitconfig`, so the identity is selected by matching a repo's
+remote URL rather than its on-disk location. Each forge has three blocks to
+cover `ssh://`/`https://`, ported, and scp-style (`git@host:owner/repo`) URLs;
+a bare leading `**host/**` glob silently fails to match `ssh://git@host/…`, so
+the scheme/`host:` prefix must be anchored.
+
+To add a new forge, use the `add-git-forge` skill.
