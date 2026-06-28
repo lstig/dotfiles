@@ -1,6 +1,10 @@
 #!/usr/bin/env sh
 
-# always source ~/.envrc before loading the current .envrc
-if [ -f "$HOME/.envrc" ] && [ "$PWD" != "$HOME" ]; then
+# Always source ~/.envrc before loading the current .envrc
+# This will only fire if all of the following are true
+# - ~/.envrc exists
+# - the current directory has a ~/.envrc
+# - the current directory isn't the user's home
+if [ -f "$PWD/.envrc" ] && [ -f "$HOME/.envrc" ] && [ "$PWD" != "$HOME" ]; then
     source_env "$HOME/.envrc"
 fi
