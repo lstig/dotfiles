@@ -15,9 +15,11 @@ email kept in a small per-forge file under `git/.config/git/`.
 ```
 git/.gitconfig                 # main config + per-forge includeIf blocks
 git/.config/git/<forge>        # [user] email = ... for that forge
+git/.config/git/allowed_signers # email -> signing key, for local verification
 ```
 
-Each forge has **one** email file and **three** `includeIf` blocks (see below).
+Each forge has **one** email file, **three** `includeIf` blocks (see below),
+and **one** `allowed_signers` line mapping its email to the signing key.
 
 ## The glob gotcha (why three patterns)
 
@@ -64,13 +66,25 @@ always use `owner/repo`, so this is fine in practice.
        path = ~/.config/git/<forge>
    ```
 
-4. **Re-stow** so the new email file is symlinked into `$HOME` (the `.gitconfig`
+4. **Add an `allowed_signers` line** so commits made under `<EMAIL>` verify
+   locally (`git log --show-signature`, `git verify-commit`). Git matches the
+   committer email as the principal, so each email needs its own entry mapping
+   to the signing public key. One line per email (same key is fine):
+   ```bash
+   printf '%s %s\n' "<EMAIL>" "$(cat ~/.ssh/id_rsa.pub | cut -d' ' -f1-2)" \
+     >> "$DOTFILES/git/.config/git/allowed_signers"
+   ```
+   This is only for *local* verification — forges verify against the key
+   uploaded to your account, not this file. Skip only if the forge identity
+   signs with a different key (then add that key's line instead).
+
+5. **Re-stow** so the new email file is symlinked into `$HOME` (the `.gitconfig`
    symlink already exists, but a brand-new `.config/git/<forge>` file is not):
    ```bash
    stow -v -R -t "$HOME" -d "$DOTFILES" git
    ```
 
-5. **Verify** the identity resolves for each URL form, without touching real
+6. **Verify** the identity resolves for each URL form, without touching real
    repos:
    ```bash
    for url in \
@@ -82,16 +96,21 @@ always use `owner/repo`, so this is fine in practice.
      rm -rf "$d"
    done
    ```
-   All three must print `<EMAIL>`.
+   All three must print `<EMAIL>`. Confirm the signer entry too:
+   ```bash
+   git config get user.signingkey >/dev/null && \
+     grep -q "<EMAIL>" ~/.config/git/allowed_signers && echo "signer OK"
+   ```
 
-6. **Update `git/CONTEXT.md`** — add the new forge to the structure listing.
+7. **Update `git/CONTEXT.md`** — add the new forge to the structure listing.
 
-7. **Stage and show the diff**, then commit with a scoped conventional message
+8. **Stage and show the diff**, then commit with a scoped conventional message
    (e.g. `feat(git): add <forge> identity`). Do not commit unless asked.
 
 ## Notes
 
-- The email files contain no secrets — they are public identity addresses only.
+- The email files and `allowed_signers` contain no secrets — only public
+  identity addresses and public keys.
 - Multiple `includeIf` blocks pointing at the same file is intentional and
   harmless; later includes simply re-set the same value.
 - To find a forge's privacy email, check the forge's account/email settings for
