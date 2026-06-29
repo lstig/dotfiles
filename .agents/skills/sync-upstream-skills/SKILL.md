@@ -26,6 +26,12 @@ and echoed to stdout. Each per-skill section lists, per file:
 - `! path  CONFLICT` — merge produced conflict markers, or no recorded base
   was available so user vs. upstream changes can't be told apart
 
+After the per-skill sections, a **`## Reference closure`** section lists any
+vendored skill that invokes a `/other-skill` with no vendored counterpart (see
+[ADR 0003](../../../docs/adr/0003-vendored-skill-reference-closure.md)). A clean
+3-way merge can still leave a skill broken this way — upstream often delegates
+work to sibling skills you haven't vendored.
+
 ## Resolving conflicts
 
 For each `! CONFLICT` the report names, walk the user through this loop:
@@ -58,6 +64,14 @@ For each `! CONFLICT` the report names, walk the user through this loop:
    gives the next sync a clean 3-way base.
 
 Show the user the resolution for each file before moving on — don't batch.
+
+## Resolving unresolved references
+
+For each `! ... invokes /x` line under `## Reference closure`, the skill body
+calls a sibling skill that isn't vendored. Vendor the missing skill with
+`add-upstream-skill` (find its upstream URL in the same source repo), then
+re-run the sync to confirm closure. If the reference is stale rather than
+missing (upstream dropped the sibling), edit the body to remove the call.
 
 ## Notes
 

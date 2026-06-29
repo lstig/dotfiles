@@ -111,11 +111,44 @@ update_source_rev() {
   SHA="$2" yq --front-matter=process -i '.["source-rev"] = strenv(SHA)' "$1"
 }
 
+# Warn when a vendored skill invokes a `/other-skill` that isn't vendored.
+# Upstream skills delegate work by referencing sibling skills (e.g. "Run the
+# `/grilling` skill"); if that sibling isn't vendored here, the skill breaks at
+# runtime even though the sync merged cleanly. Heuristic: backtick-wrapped
+# `/kebab` tokens on lines that mention "skill" or "session" (the delegating
+# phrasing), checked against the set of vendored skill-dir basenames. Advisory
+# only — does not affect the exit status.
+check_reference_closure() {
+  local md name tok bare vendored_names=""
+  while IFS= read -r -d '' md; do
+    vendored_names+=" $(basename "$(dirname "$md")")"
+  done < <(find "$AGENTS_DIR" -type f -name 'SKILL.md' -print0)
+
+  both ""
+  both "## Reference closure"
+  local unresolved=0
+  while IFS= read -r -d '' md; do
+    name="$(basename "$(dirname "$md")")"
+    while IFS= read -r tok; do
+      bare="${tok#/}"
+      case " $vendored_names " in
+        *" $bare "*) ;;  # resolves to a vendored skill
+        *) both "  ! $name invokes \`/$bare\` — no vendored skill by that name; vendor it or the skill breaks at runtime"
+           unresolved=$(( unresolved + 1 )) ;;
+      esac
+    done < <(grep -iE 'skill|session' "$md" | grep -oE '`/[a-z][a-z0-9-]+`' | tr -d '`' | sort -u)
+  done < <(find "$AGENTS_DIR" -type f -name 'SKILL.md' -print0)
+
+  (( unresolved == 0 )) && both "- ✓ all skill references resolve to vendored skills"
+  UNRESOLVED_REFS=$unresolved
+}
+
 CONFLICTS=0
 UPDATED=0
 ADDED=0
 MERGED=0
 SKIPPED=0
+UNRESOLVED_REFS=0
 
 process_skill() {
   local skill_md="$1"
@@ -244,6 +277,8 @@ while IFS= read -r -d '' f; do
   process_skill "$f"
 done < <(find "$AGENTS_DIR" -type f -name 'SKILL.md' -print0)
 
+check_reference_closure
+
 both ""
 both "## Summary"
 both "- mode: $MODE"
@@ -251,6 +286,7 @@ both "- skills updated cleanly: $UPDATED"
 both "- files merged: $MERGED, added: $ADDED"
 both "- file conflicts: $CONFLICTS"
 both "- skills skipped: $SKIPPED"
+both "- unresolved skill references: $UNRESOLVED_REFS"
 both ""
 both "Report: $REPORT"
 
