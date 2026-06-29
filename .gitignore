@@ -19,6 +19,9 @@ agents/**/*
 !agents/.claude/skills
 !agents/.claude/skills/**/*
 !agents/.claude/CLAUDE.md
+!agents/.agents
+!agents/.agents/skills
+!agents/.agents/skills/**/*
 
 # ignore local worktrees created by claude
 .claude/worktrees/
