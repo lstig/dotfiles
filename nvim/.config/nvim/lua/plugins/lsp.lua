@@ -3,8 +3,6 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local lspconfig = require("lspconfig")
-
       -- Key mappings applied when an LSP attaches to a buffer.
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("lsp-keymaps", { clear = true }),
@@ -25,8 +23,9 @@ return {
         end,
       })
 
-      lspconfig.zls.setup({})
-      lspconfig.gopls.setup({})
+      -- nvim-lspconfig provides server definitions (lsp/*.lua runtime files);
+      -- vim.lsp.enable() is the 0.11+ way to activate them.
+      vim.lsp.enable({ "gopls", "zls" })
     end,
   },
 }
