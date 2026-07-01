@@ -3,11 +3,20 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
+      -- Popup-style completion menu that plays nicely with autotrigger.
+      vim.o.completeopt = "menuone,noselect,popup"
+
       -- Key mappings applied when an LSP attaches to a buffer.
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("lsp-keymaps", { clear = true }),
         callback = function(ev)
           local opts = { buffer = ev.buf }
+
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+          if client and client:supports_method("textDocument/completion") then
+            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+          end
+
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
