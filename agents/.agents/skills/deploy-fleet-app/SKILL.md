@@ -24,7 +24,7 @@ Runtime constants (from `k8s-fleet/clusters/turing/runtime-info.yaml`): `ENVIRON
 2. **Pick the deploy method.** Look for an official upstream Helm chart (classic repo or OCI). If one exists, use the HelmRelease pattern; otherwise use the raw Kustomize-manifest pattern (see TEMPLATES.md for both). Don't guess — check the upstream project's actual release artifacts.
    Done when: method chosen and matches what upstream actually publishes.
 
-3. **Scaffold `k8s-apps/components/<category>/base/<app>/`** per the chosen pattern in TEMPLATES.md. Every app gets its own `namespace.yaml` and a self-contained `kustomization.yaml`.
+3. **Scaffold `k8s-apps/components/<category>/base/<app>/`** per the chosen pattern in TEMPLATES.md. Every app gets its own `namespace.yaml` and a self-contained `kustomization.yaml`. Any credential the app needs (API/session secret, OIDC client secret, DB password not already owned by an operator) follows the Secrets section below — never a literal value you invented.
    Done when: `kubectl kustomize components/<category>/base/<app>` builds with no errors.
 
 4. **Scaffold `k8s-apps/components/<category>/prod/<app>/`** — overlay referencing `../../base/<app>`, plus any prod-only resources (extra storage, patches, routes).
@@ -50,6 +50,16 @@ Runtime constants (from `k8s-fleet/clusters/turing/runtime-info.yaml`): `ENVIRON
    - `flux get helmreleases -n <namespace>` or `flux get kustomizations -A` — expect `Ready: True`
    - `kubectl get pods -n <namespace>` — expect `Running`
    Done when: the relevant Flux object is Ready and its pods are Running. If not, see Troubleshooting.
+
+## Secrets
+
+Never generate a secret value yourself (no `secrets.token_urlsafe`, no random passwords, no invented API keys) and never write one — real or placeholder-that-looks-real — into a committed file. Assume the human wires in every sensitive value after the app is scaffolded.
+
+- Prefer the app's own `existingSecret`/`secretRef`-style config field (most Helm charts and many raw manifests have one) over an inline value, so the Secret name/keys you reference are exactly what a `secretGenerator` produces.
+- Scaffold a `secretGenerator` in the relevant `kustomization.yaml` (base if the value is infra-shaped like a DB password, prod if it's environment-specific like an OIDC client secret) pointing at a `<name>.sops.env` file — via `envs:` for a whole file or `files:`/`literals:` as needed — but do not create that `.sops.env` file's contents. Tell the user its path, the keys it must contain, and that they need to write and encrypt it themselves (`sops -e -i <file>`, matching the repo's `.sops.yaml` creation rules) before the HelmRelease/Deployment will come up healthy.
+- If the chart has no `existingSecret` knob and only takes a raw value in `values.yaml`/env, still don't fabricate one — scaffold the `secretGenerator` + `.sops.env` reference and wire the resulting Secret in via `valueFrom.secretKeyRef` (raw manifests) or a values/patch override that reads from the Secret, not a literal.
+- Passwords already owned by an operator (e.g. CNPG's auto-generated `<cluster>-app` Secret) aren't your concern — reference them by name, don't touch their contents.
+- Flag every secret left for the user in your final summary as a punch list (Secret name, namespace, expected keys), the same way step 9's verification failures get surfaced.
 
 ## Troubleshooting
 
