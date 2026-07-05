@@ -18,6 +18,9 @@ Runtime constants (from `k8s-fleet/clusters/turing/runtime-info.yaml`): `ENVIRON
 
 ## Steps
 
+0. **Start from a clean worktree.** For each repo you'll touch (k8s-apps, and k8s-fleet/k8s-infra if needed), `git -C <repo> checkout main && git -C <repo> pull`, then create a fresh worktree off `main` for this task rather than editing in place.
+   Done when: you're working in a new worktree based on an up-to-date `main`, for every repo you'll edit.
+
 1. **Classify the app.** Pick its category and name. Confirm the category is wired: `k8s-fleet/tenants/apps/components/<category>.yaml` must exist and be listed in `tenants/apps/components/kustomization.yaml`'s `resources:`. If the category is new, copy an existing `components/<category>.yaml` (e.g. `media.yaml`), rename the Kustomization to `apps-<category>`, set `path: components/<category>/${ENVIRONMENT}`, and add the file to `components/kustomization.yaml`.
    Done when: category chosen and its Flux Kustomization exists in k8s-fleet.
 
