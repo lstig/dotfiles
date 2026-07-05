@@ -1,8 +1,8 @@
 ---
 name: grilling
-description: Interview the user relentlessly about a plan or design. Use when the user wants to stress-test a plan before building, or uses any 'grill' trigger phrases.
+description: Grill the user relentlessly about a plan or design. Use when the user wants to stress-test a plan before building, or uses any 'grill' trigger phrases.
 source: https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling
-source-rev: 448d0adee7cb797db5a2ad278e9e8d6c874e12af
+source-rev: 66f92b61f5b1434a1c7422f6fbd8efc5ee0c0214
 source-author: Matt Pocock
 ---
 
@@ -11,3 +11,5 @@ Interview me relentlessly about every aspect of this plan until we reach a share
 Ask the questions one at a time, waiting for feedback on each question before continuing. Asking multiple questions at once is bewildering.
 
 If a question can be answered by exploring the codebase, explore the codebase instead.
+
+Do not enact the plan until I confirm we have reached a shared understanding.
