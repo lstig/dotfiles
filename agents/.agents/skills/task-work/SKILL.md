@@ -24,7 +24,8 @@ The note format and update mechanics live in the `task-create` skill — read it
    If you get blocked (user input needed, outage, missing access), block the note per `task-create`'s conventions, then poll: periodically re-read the note and re-check the blocker.
    A changed `updated_time` while you were idle means the user edited the note — read the response under `**Response:**` (a ticked option, or text on the freeform line).
    Resume once the user has responded or the blocker has cleared on its own; unblock the note before touching the next item.
-   Done when no unchecked items remain and every checked item has a matching log entry.
+   When you think the work is finished, re-read the note and review the whole checklist: confirm every item is genuinely complete, checked off, and has a matching log entry — an update lost to a tool failure looks identical to one you never made.
+   Done when that review finds no unchecked items and no gaps.
 
 4. **Close out.**
    Add links for any artifacts produced (PRs, commits, docs), close the task per `task-create`'s conventions, and tell the user what changed and what to do next.

@@ -1,7 +1,7 @@
 ---
 name: task-worker-sonnet
 description: Works a Joplin-tracked task to completion via the task-work skill. Use for routine, well-scoped tasks; hand complex or ambiguous ones to task-worker-opus.
-model: sonnet
+model: claude-sonnet-5
 skills:
   - task-create
 ---
