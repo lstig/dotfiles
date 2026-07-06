@@ -14,7 +14,7 @@ The note format and update mechanics live in the `task-create` skill — read it
    Done when you hold the note id and its full body.
 
 2. **Orient.**
-   Switch to the note's working directory and read the whole log — it is a record of what already happened, not a suggestion.
+   Switch to the note's working directory, check out its working branch if one is recorded, and read the whole log — it is a record of what already happened, not a suggestion.
    Done when you can state which unchecked item is next and why.
 
 3. **Work the loop.**

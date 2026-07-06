@@ -24,6 +24,8 @@ Done when the note exists in `Agents` **as a to-do** (it appears under `type:tod
 
     **Working directory:** `/absolute/path`
 
+    **Working branch:** `branch-name`
+
     ## Checklist
 
     - [ ] First concrete item
@@ -38,6 +40,8 @@ Done when the note exists in `Agents` **as a to-do** (it appears under `type:tod
     - 2026-07-05 14:02 — Created task note.
 
 `## Log` stays the last section so entries land there with plain `append`.
+
+Omit the working-branch line when the directory is not a git repository.
 
 ## Update conventions
 
