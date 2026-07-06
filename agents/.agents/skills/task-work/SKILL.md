@@ -9,8 +9,9 @@ Work a task while keeping its Joplin task note the single source of truth.
 The note format and update mechanics live in the `task-create` skill — read it first and follow its update conventions for every note change.
 
 1. **Resolve the note.**
-   If the arguments name an existing note, find it (`search_notes` with `notebook:Agents type:todo iscompleted:0 <keywords>`) and `read_note` it.
-   Otherwise invoke `task-create` for the described work.
+   A bare number (`42`) or `[NNNN]` handle resolves by searching titles for the zero-padded `[NNNN]` prefix; otherwise treat the arguments as keywords or a note id and find it (`search_notes` with `notebook:Agents type:todo iscompleted:0 <keywords>`).
+   `read_note` the match.
+   If nothing matches, invoke `task-create` for the described work.
    Done when you hold the note id and its full body.
 
 2. **Orient.**
