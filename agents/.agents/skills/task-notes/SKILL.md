@@ -25,7 +25,7 @@ Done when the note exists in `Agents` **as a to-do** (it appears under `type:tod
 
 All updates go through `update_note` partial ops; never rewrite the full body.
 
-- **Log an event:** `append` one entry in the log-entry format, including its trailing newline — without it the next append runs onto the same line.
+- **Log an event:** `append` one entry in the log-entry format, ending with a real trailing newline — an actual line break, never the literal characters backslash-`n`, which run the entries together (see [TASK-FORMAT.md](./TASK-FORMAT.md)).
 - **Record durable knowledge:** `append` a log entry tagged `Decision:`, `Finding:`, or `Dead end:` per [TASK-FORMAT.md](./TASK-FORMAT.md).
   If a finding changes the shape of the work, also add a checklist item or amend `## Task` — the note's current truth lives there, not in the log.
 - **Update status:** `replace_text` with `status: <current>` → `status: <new>` (in the frontmatter block), using the valid status values.
@@ -37,4 +37,5 @@ All updates go through `update_note` partial ops; never rewrite the full body.
 - **Block the task:** mark the title with `🛑` and insert a blocked section, both per [TASK-FORMAT.md](./TASK-FORMAT.md).
   Insert it with `replace_text` on the `## Task` heading, replacing it with the blocked section, a blank line, then the heading — a plain `prepend` would land above the frontmatter and break it.
 - **Unblock the task:** restore the title, log the user's response or the resolution, and remove the whole blocked section with `replace_text` (replace with nothing).
-- **Close the task:** when every checklist item is checked, set `todo_completed: true` and append a final log entry with the outcome.
+- **Close the task:** when every checklist item is checked, set `todo_completed: true` **first** — that single op drops the note out of `iscompleted:0` searches, so do it before any other close bookkeeping — then append a final log entry with the outcome.
+  Never route a finished task through `status: available`: it reopens the note to other workers in the gap before it closes.
