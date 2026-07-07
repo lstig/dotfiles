@@ -1,0 +1,34 @@
+## Atuin client config. Full reference: https://docs.atuin.sh/configuration/config/
+
+# skim is the newer fuzzy matcher; default is "fuzzy".
+search_mode = "skim"
+
+# Small popup instead of full-screen TUI. inline_height = 10 leaves room for
+# the search bar and help/version row, landing on ~5-10 visible result rows.
+# Same height applied to the up-arrow binding for consistency.
+style = "compact"
+inline_height = 10
+inline_height_shell_up_key_binding = 10
+
+# Mirrors HISTORY_IGNORE in .config/zsh/.zshrc.
+history_filter = [
+  "^yt-dl",
+]
+
+# Stock default for new installs: enter runs the selected command immediately,
+# tab edits it instead. Kept as-is.
+enter_accept = true
+
+# TODO(lstig): once the self-hosted sync server is up, uncomment and set this
+# to the server's address instead of the atuin.sh cloud default.
+# sync_address = "https://api.atuin.sh"
+
+[sync]
+# Stock default for new installs: enables sync v2. Kept as-is.
+records = true
+
+[daemon]
+# TODO(lstig): once syncing, enable the daemon to centralize sync in one
+# process per machine instead of one per terminal.
+# enabled = true
+# autostart = true
