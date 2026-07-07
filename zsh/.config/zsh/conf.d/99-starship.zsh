@@ -3,6 +3,11 @@ if (( ! $+commands[starship] )); then
   return
 fi
 
+# Inlined output of `starship init zsh` (with the absolute `starship` binary
+# path shortened to the bare command), not eval'd (see ADR 0003). Regenerate
+# by running `starship init zsh` and replacing everything below this comment
+# whenever starship is upgraded, then reapply that path substitution.
+
 # ZSH has a quirk where `preexec` is only run if a command is actually run (i.e
 # pressing ENTER at an empty command line will not cause preexec to fire). This
 # can cause timing issues, as a user who presses "ENTER" without running a command
