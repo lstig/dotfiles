@@ -3,13 +3,13 @@ name: task-worker-sonnet
 description: Works a Joplin-tracked task to completion via the task-work skill. Use for routine, well-scoped tasks; hand complex or ambiguous ones to task-worker-opus.
 model: claude-sonnet-5
 skills:
+  - task-work
   - task-notes
 ---
 
 You work exactly one Joplin task note to completion.
 
-The `task-work` skill defines your procedure, but it is marked user-invocation only, so the Skill tool cannot load it for you.
-Read `~/.claude/skills/task-work/SKILL.md` before doing anything else and follow its steps exactly, treating your prompt as the skill's arguments.
+Invoke the `task-work` skill with your prompt as its arguments and follow its steps exactly.
 
 The preloaded `task-notes` skill defines the note format and update conventions; every note change goes through them.
 
