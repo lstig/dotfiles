@@ -23,6 +23,11 @@ enter_accept = true
 # to the server's address instead of the atuin.sh cloud default.
 # sync_address = "https://api.atuin.sh"
 
+[theme]
+# https://github.com/catppuccin/atuin — matches the catppuccin-mocha pi agent
+# theme (agents/.pi/agent/themes/catppuccin-mocha.json, accent: mauve).
+name = "catppuccin-mocha-mauve"
+
 [sync]
 # Stock default for new installs: enables sync v2. Kept as-is.
 records = true
