@@ -35,6 +35,14 @@ package.
   `history.jsonl`, `cache/`, `plugins/`, `daemon*`, and similar
   Machine-mutated state files under `~/.pi/agent/` and `~/.claude/` must
   stay as Real files, not symlinks; they are not tracked here.
-- Vendored skills carry `source:`, `source-rev:`, and `source-author:`
-  frontmatter. Reconcile them with upstream via the
-  `sync-upstream-skills` skill.
+- Vendored skills are listed in `.agents/skills/vendor-skills/skills.txt`
+  and managed by the `vendor-skills` skill (the `skills.sh` CLI): add,
+  update, remove, or prune from that manifest. They float to upstream
+  latest and are not edited in place.
+- This includes the author's own shareable skills, vendored from
+  [`lstig/agents`](https://github.com/lstig/agents) the same way as
+  third-party ones. Edit those in that repo, then run `skills.sh update`
+  to pull the changes in — don't edit the vendored copies here.
+- Private skills with no upstream (e.g. `deploy-fleet-app`) carry
+  `metadata: internal: true`, are absent from `skills.txt`, and are edited
+  in place; the tooling never fetches or prunes them.

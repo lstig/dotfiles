@@ -28,7 +28,7 @@ dotfiles/
 
 Each Stow package has its own `CONTEXT.md` describing its internal structure, excluded from stow installation via a per-package `.stow-local-ignore`.
 
-`docs/adr/` holds Architecture Decision Records ("ADRs") for repo-wide decisions that affect more than one package or skill (e.g. how vendored-skill frontmatter is reconciled during sync).
+`docs/adr/` holds Architecture Decision Records ("ADRs") for repo-wide decisions that affect more than one package or skill (e.g. where the canonical skills tree lives).
 Per-package decisions belong in the package's `CONTEXT.md` instead.
 
 ## Install

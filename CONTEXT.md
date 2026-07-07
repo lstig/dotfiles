@@ -25,13 +25,13 @@ Loaded by Pi from `agents/.pi/agent/skills/` and by Claude Code from `agents/.cl
 _Avoid_: Plugin, command, macro
 
 **Vendored skill**:
-A Skill copied from an upstream repo (typically `mattpocock/skills`), tracked with `source:`, `source-rev:`, and `source-author:` frontmatter.
-Synced via the `sync-upstream-skills` skill.
+A Skill fetched from an upstream repo (e.g. `mattpocock/skills`, `lstig/agents`) and listed in `.agents/skills/vendor-skills/skills.txt`.
+Managed via the `vendor-skills` skill (the `skills.sh` CLI); floats to upstream latest, edited upstream rather than in place.
 _Avoid_: Upstream skill, imported skill, third-party skill
 
-**Locally-authored skill**:
-A Skill written from scratch in this repo, with no `source:` frontmatter.
-_Avoid_: Custom skill, own skill, in-house skill
+**Internal skill**:
+A private Skill authored in this repo with no upstream, marked `metadata: internal: true` so the vendoring tooling never fetches or prunes it (e.g. `deploy-fleet-app`).
+_Avoid_: Custom skill, own skill, locally-authored skill
 
 ### Stow layout
 
@@ -70,5 +70,5 @@ _Avoid_: Local instructions, repo instructions
 ### Upstream sync
 
 **Sync**:
-Pulling upstream changes into Vendored skills via the `sync-upstream-skills` skill, using the `source-rev:` field in the Vendored skill's frontmatter as the merge base.
+Refreshing Vendored skills from their upstream repos via the `vendor-skills` skill (`skills.sh update`), which re-fetches each entry in `skills.txt` to upstream latest.
 _Avoid_: Update, refresh, pull

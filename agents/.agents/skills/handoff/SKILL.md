@@ -3,9 +3,6 @@ name: handoff
 description: Compact the current conversation into a handoff document for another agent to pick up.
 argument-hint: "What will the next session be used for?"
 disable-model-invocation: true
-source: https://github.com/mattpocock/skills/tree/main/skills/productivity/handoff
-source-rev: 66f92b61f5b1434a1c7422f6fbd8efc5ee0c0214
-source-author: Matt Pocock
 ---
 
 Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to the temporary directory of the user's OS - not the current workspace.

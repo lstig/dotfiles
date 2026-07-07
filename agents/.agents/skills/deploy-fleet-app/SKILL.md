@@ -2,6 +2,8 @@
 name: deploy-fleet-app
 description: Scaffold and wire a new off-the-shelf app into the k8s-fleet GitOps repos and verify Flux reconciles it.
 disable-model-invocation: true
+metadata:
+  internal: true
 ---
 
 Coordinates a new app across the three Flux repos that make up the fleet: mostly edits **k8s-apps**, occasionally **k8s-fleet** or **k8s-infra**. See TEMPLATES.md for the exact files each deploy method needs.

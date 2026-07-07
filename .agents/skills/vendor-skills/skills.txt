@@ -1,0 +1,18 @@
+# Vendored skills, managed by skills.sh (the skills.sh CLI, npx skills).
+# Format: one "<owner/repo> <skill-name>" per line. Blank lines and '#' comments ignored.
+# Private, hand-managed skills (e.g. deploy-fleet-app) are NOT listed here; they
+# carry `metadata: internal: true` frontmatter and the tooling skips them.
+
+mattpocock/skills codebase-design
+mattpocock/skills domain-modeling
+mattpocock/skills grill-me
+mattpocock/skills grill-with-docs
+mattpocock/skills grilling
+mattpocock/skills handoff
+mattpocock/skills improve-codebase-architecture
+mattpocock/skills teach
+mattpocock/skills writing-great-skills
+lstig/agents pr
+lstig/agents shipit
+lstig/agents task-notes
+lstig/agents task-work

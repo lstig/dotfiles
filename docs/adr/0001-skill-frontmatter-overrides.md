@@ -1,7 +1,13 @@
 # ADR 0001: Local overrides in vendored SKILL.md frontmatter
 
-Status: Accepted
+Status: Superseded (2026-07-06)
 Date: 2026-06-06
+
+> **Superseded.** Vendoring moved to the `skills.sh` CLI (the `vendor-skills`
+> skill). Skills are now tracked in `.agents/skills/vendor-skills/skills.txt`
+> and float to upstream latest, so there is no 3-way merge and no
+> `source:`/`source-rev:`/`source-author:` provenance frontmatter to reconcile.
+> The decision below is retained for history only.
 
 ## Context
 
