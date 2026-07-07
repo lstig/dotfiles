@@ -25,7 +25,20 @@ HISTORY_IGNORE='(^yt-dl)'
 # load oh-my-zsh
 plugins=(media-tools direnv claude)
 source $ZSH/oh-my-zsh.sh
-setopt extendedglob
+
+# oh-my-zsh's lib/history.zsh turns on SHARE_HISTORY, which makes every
+# prompt read-merge-write $HISTFILE against all other live sessions. With
+# multiple concurrent shells this is a well-known source of corrupted/
+# truncated histfiles. Atuin records history independently (see 40-atuin.zsh)
+# so we don't need cross-session live sharing here — just append each
+# session's own lines on command exit.
+unsetopt share_history
+setopt inc_append_history
+
+# Treat the ‘#’, ‘~’ and ‘^’ characters as part of patterns for filename
+# generation, etc. (An initial unquoted ‘~’ always produces named directory
+# expansion.)
+setopt extended_glob
 
 # load drop-in configs
 for config in $ZDOTDIR/conf.d/*.zsh; do
