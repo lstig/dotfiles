@@ -28,6 +28,7 @@ These apply to every pi session for this user. Project-level `AGENTS.md` files t
 
 ## Git
 
+- `git.lan.stignet.com` is a Forgejo server, it can be interacted with via the `fj` cli
 - **Never** force push, unless explicitly asked.
 - Default to `--force-with-lease` if a force push is genuinely needed.
 - Never amend or rebase commits authored by someone else.
