@@ -3,6 +3,10 @@
 # Private, hand-managed skills (e.g. deploy-fleet-app) are NOT listed here; they
 # carry `metadata: internal: true` frontmatter and the tooling skips them.
 
+lstig/agents pr
+lstig/agents shipit
+lstig/agents task-notes
+lstig/agents task-work
 mattpocock/skills codebase-design
 mattpocock/skills domain-modeling
 mattpocock/skills grill-me
@@ -11,8 +15,5 @@ mattpocock/skills grilling
 mattpocock/skills handoff
 mattpocock/skills improve-codebase-architecture
 mattpocock/skills teach
+mattpocock/skills wayfinder
 mattpocock/skills writing-great-skills
-lstig/agents pr
-lstig/agents shipit
-lstig/agents task-notes
-lstig/agents task-work
