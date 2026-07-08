@@ -19,9 +19,8 @@ history_filter = [
 # tab edits it instead. Kept as-is.
 enter_accept = true
 
-# TODO(lstig): once the self-hosted sync server is up, uncomment and set this
-# to the server's address instead of the atuin.sh cloud default.
-# sync_address = "https://api.atuin.sh"
+# Url to the remote sync server
+sync_address = "https://atuin.internal.stignet.com"
 
 [theme]
 # https://github.com/catppuccin/atuin — matches the catppuccin-mocha pi agent
@@ -33,7 +32,5 @@ name = "catppuccin-mocha-mauve"
 records = true
 
 [daemon]
-# TODO(lstig): once syncing, enable the daemon to centralize sync in one
-# process per machine instead of one per terminal.
-# enabled = true
-# autostart = true
+enabled = true
+autostart = true
