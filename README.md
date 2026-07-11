@@ -23,6 +23,7 @@ dotfiles/
 ├── git/          # Stow package: git config, signing, per-forge identities
 ├── nvim/         # Stow package: Neovim config
 ├── terminal/     # Stow package: Ghostty + Starship config
+├── yt-dlp/       # Stow package: yt-dlp config + plugins (~/.config/yt-dlp/)
 └── zsh/          # Stow package: zsh config (XDG-based, modular conf.d/)
 ```
 

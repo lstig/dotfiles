@@ -1,0 +1,2 @@
+--retries 15
+--retry-sleep exp=1:300

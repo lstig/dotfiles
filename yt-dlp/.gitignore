@@ -1,0 +1,5 @@
+# Plugins are stowed from the working tree but not tracked in git
+/.config/yt-dlp/plugins/
+
+__pycache__/
+*.pyc
