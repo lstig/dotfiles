@@ -4,7 +4,8 @@ These apply to every pi session for this user. Project-level `AGENTS.md` files t
 
 ## Communication
 
-- Be concise. Skip preamble and filler ("Great question!", "I'll now…").
+- Be concise. Skip preamble and filler ("Great question!", "I'll now...").
+- Use literal language. Avoid idioms ("Smoking gun", "load-bearing").
 - Lead with the answer or the action; supporting detail comes after.
 - Surface assumptions explicitly when they affect correctness.
 - Ask before kicking off anything that will take more than ~30s of tool use or touches more than a handful of files. For small, obvious tasks, just do it.
@@ -17,7 +18,11 @@ These apply to every pi session for this user. Project-level `AGENTS.md` files t
 - Keep diffs small and focused. No drive-by refactors unless asked.
 - Batch related edits into one tool call rather than trickling them out.
 - Don't leave commented-out code, debug prints, or `TODO` markers unless explicitly requested.
-- Don't add comments that just restate the code. Comments explain *why*.
+- Comments should be brief and descriptive, they describe *what* the code is (documenting a class or function, explain a non-obvious constant or variable, etc...).
+- Comments that explain *why* should be added when all three of following criteria are true:
+    1. **Hard to reverse** — the cost of changing your mind later is meaningful
+    2. **Surprising without context** — a future reader will wonder "why did they do it this way?"
+    3. **The result of a real trade-off** — there were genuine alternatives and you picked one for specific reasons
 
 ## Shell & system
 
@@ -28,9 +33,11 @@ These apply to every pi session for this user. Project-level `AGENTS.md` files t
 
 ## Git
 
+- `git.lan.stignet.com` is a Forgejo server, it can be interacted with via the `fj` cli
 - **Never** force push, unless explicitly asked.
 - Default to `--force-with-lease` if a force push is genuinely needed.
 - Never amend or rebase commits authored by someone else.
+- Do all work for a task in a git worktree
 - Don't commit on behalf of the user unless asked. When asked, write a Conventional Commits–style message (`type(scope): subject`) and show the staged diff before committing.
 - Don't `git add -A` blindly — review what's staged.
 
