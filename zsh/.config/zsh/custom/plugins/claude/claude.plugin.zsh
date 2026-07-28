@@ -1,15 +1,19 @@
 # Wrapper around the `claude` CLI that always injects a few preferred flags.
 #
+# A session id is generated and passed via --session-id unless the invocation
+# already carries one (--session-id, --resume, --continue, --from-pr).
+#
 # Configure by exporting any of these before the function is called:
-#   CLAUDE_WRAPPER_SYSTEM_PROMPT_FILE  Path to a system prompt file. Passed via
-#                                     --system-prompt-file when the file exists
-#                                     and the user hasn't already supplied
-#                                     --system-prompt or --system-prompt-file.
-#                                     Default: $HOME/.claude/system-prompt.md
-#   CLAUDE_WRAPPER_TOOLS              Space-separated list for --tools. Passed
-#                                     when the user hasn't already supplied
-#                                     --tools. Default: the tools listed in
-#                                     SYSTEM.md's "Available tools" section.
+#   CLAUDE_WRAPPER_SYSTEM_PROMPT_FILE  Path to a system prompt file. Rendered
+#                                     with an Environment section and gitStatus
+#                                     snapshot appended, then passed via
+#                                     --system-prompt-file unless the user
+#                                     already supplied --system-prompt or
+#                                     --system-prompt-file.
+#                                     Default: SYSTEM.md beside this file.
+#   CLAUDE_WRAPPER_TOOLS              Space-separated list for --tools. Read by
+#                                     the --tools block below, which is
+#                                     currently commented out.
 #   CLAUDE_WRAPPER_EXTRA_ARGS         Array of additional default args to
 #                                     prepend on every invocation.
 #
