@@ -19,6 +19,7 @@ agents/**/*
 !agents/.claude/skills
 !agents/.claude/skills/**/*
 !agents/.claude/CLAUDE.md
+!agents/.claude/statusline.sh
 !agents/.agents
 !agents/.agents/skills
 !agents/.agents/skills/**/*

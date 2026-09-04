@@ -20,12 +20,16 @@ Installs symlinks under `~/.agents/` (canonical, agent-agnostic), `~/.pi/agent/`
 .claude/
 ├── CLAUDE.md -> ../.agents/AGENTS.md     # symlink to canonical instructions
 ├── agents/         # Claude Code subagents
-└── skills -> ../.agents/skills           # symlink to canonical skills
+├── skills -> ../.agents/skills           # symlink to canonical skills
+└── statusline.sh   # Claude Code status line renderer
 ```
 
 Global instructions and skills each live exactly once, under `.agents/`.
 The per-agent copies (`.pi/agent/AGENTS.md`, `.claude/CLAUDE.md`, `.claude/skills`, `.pi/agent/skills`) are relative symlinks into that canonical tree, so every agent sees the same instructions and the same skill set.
 When a new agent tool is added, point its instructions file and skills directory at `.agents/` the same way.
+`statusline.sh` is Claude Code-specific and has no Pi counterpart, so it sits directly under `.claude/` rather than in the canonical `.agents/` tree.
+It is wired up by the `statusLine` key in `~/.claude/settings.json`, which stays a Real, untracked file.
+
 Keep the canonical instructions agent-agnostic: harness-specific guidance belongs in that harness's own system prompt (for Claude Code, `zsh/.config/zsh/custom/plugins/claude/SYSTEM.md`), not here.
 
 Pi reference docs ship inside the installed `@earendil-works/pi-coding-agent`
